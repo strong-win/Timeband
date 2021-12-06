@@ -40,6 +40,7 @@ def main():
     MODEL_PATH = os.path.join("models", FILE_NAME)
     OBSERVED_LEN = 5
     FORECAST_LEN = 5
+    TARGETS = ["aaaaaa_close", "bbbbbb_close", "cccccc_close", "dddddd_close", "eeeeee_close"]
     os.mkdir(MODEL_PATH) if not os.path.exists(MODEL_PATH) else None
 
     try:
@@ -49,6 +50,7 @@ def main():
         Core = Timeband(
             datadir="data/",
             filename=FILE_NAME,
+            targets=TARGETS,
             observed_len=OBSERVED_LEN,
             forecast_len=FORECAST_LEN,
             l1_weights=1,
@@ -61,7 +63,7 @@ def main():
 
     """
     STEPS = 1
-    EPOCHS = 3000
+    EPOCHS = 1
     CRITICS = 5
     train_score_plot = []
     valid_score_plot = []
@@ -111,6 +113,7 @@ def main():
             filename=FILE_NAME,
             observed_len=OBSERVED_LEN,
             forecast_len=FORECAST_LEN,
+            targets=TARGETS,
             l1_weights=1,
             l2_weights=1,
             gp_weights=1,

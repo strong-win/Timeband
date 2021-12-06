@@ -123,9 +123,6 @@ class TimebandData:
         data.interpolate(method="bfill", inplace=True)
         data.replace(np.nan, 0, inplace=True)
 
-        print(data.head(30))
-        input()
-
         data = self.parse_timeinfo(data)
         data = self.normalize(data)
 

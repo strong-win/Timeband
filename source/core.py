@@ -11,6 +11,7 @@ from .losses import TimebandLoss
 
 from .utils.logger import Logger
 from .utils.initiate import init_device
+from typing import List
 
 
 class Timeband:
@@ -22,6 +23,7 @@ class Timeband:
         filename: str,
         observed_len: int,
         forecast_len: int,
+        targets: List[str],
         l1_weights: int,
         l2_weights: int,
         gp_weights: int,
@@ -47,7 +49,7 @@ class Timeband:
         self.Data = TimebandData(
             basedir=self.datadir,
             filename=self.filename,
-            targets=["aaaaaa_close","bbbbbb_close", "cccccc_close", "dddddd_close", "eeeeee_close"],
+            targets=targets,
             drops=[],
             fill_timegap=False,
             time_index=["Date"],
@@ -56,8 +58,6 @@ class Timeband:
             observed_len=self.observed_len,
             forecast_len=self.forecast_len,
         )
-        print(self.Data.encode_dims)
-        print(self.Data.decode_dims)
         self.Model = TimebandModel(
             encode_dim=self.Data.encode_dims,
             decode_dim=self.Data.decode_dims,
