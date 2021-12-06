@@ -1,6 +1,14 @@
 import numpy as np
 import pandas as pd
 
+from tqdm import tqdm
+from torch.optim import RMSprop, Adam
+
+from .data import TimebandData
+from .models import TimebandModel
+from .metrics import TimebandMetric
+from .losses import TimebandLoss
+
 from .utils.logger import Logger
 from .utils.initiate import init_device
 
@@ -31,18 +39,15 @@ class Timeband:
         self.observed_len = observed_len
         self.forecast_len = forecast_len
 
-        self.Metric = TIMEBANDMetric()
+        self.Metric = TimebandMetric()
         self.Losses = TimebandLoss(
             l1_weights=l1_weights, l2_weights=l2_weights, gp_weights=gp_weights
         )
-        import os
 
-        d = pd.read_csv(os.path.join(self.datadir, "origin", f"{self.filename}.csv"))
-        d.drop(columns=["Date", "KOSPI", "KOSDAQ"], inplace=True)
-        self.Data = TIMEBANDData(
+        self.Data = TimebandData(
             basedir=self.datadir,
             filename=self.filename,
-            targets=d.columns,
+            targets=["aaaaaa_close","bbbbbb_close", "cccccc_close", "dddddd_close", "eeeeee_close"],
             drops=[],
             fill_timegap=False,
             time_index=["Date"],

@@ -30,7 +30,7 @@ class MyDataset(data.Dataset):
         return encoded, decoded
 
 
-class TIMEBANDData:
+class TimebandData:
     def __init__(
         self,
         basedir: str,
@@ -44,7 +44,7 @@ class TIMEBANDData:
         observed_len: int,
         forecast_len: int,
     ) -> None:
-        super(TIMEBANDData, self).__init__()
+        super(TimebandData, self).__init__()
         self.device = init_device()
 
         # Basic Configuration

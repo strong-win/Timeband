@@ -3,8 +3,8 @@ import pickle
 import pandas as pd
 from torch.utils.data import DataLoader
 
-from .source.core import Timeband
-from .source.utils.initiate import seeding
+from source.core import Timeband
+from source.utils.initiate import seeding
 
 seeding(seed=42)
 
@@ -36,16 +36,16 @@ def main():
     0. Core 불러오기
 
     """
-    FILE_NAME = "all"
+    FILE_NAME = "sample_input"
     MODEL_PATH = os.path.join("models", FILE_NAME)
-    OBSERVED_LEN = 10
+    OBSERVED_LEN = 5
     FORECAST_LEN = 5
     os.mkdir(MODEL_PATH) if not os.path.exists(MODEL_PATH) else None
 
     try:
         CORE_PATH = get_path(MODEL_PATH, "core", postfix="best")
         Core = load_core(CORE_PATH)
-    except:
+    except FileNotFoundError:
         Core = Timeband(
             datadir="data/",
             filename=FILE_NAME,
@@ -100,12 +100,12 @@ def main():
 
     """
     3. 모델 예측
-    
+
     """
     try:
         CORE_PATH = get_path(MODEL_PATH, "core", postfix="best")
         Core = load_core(CORE_PATH)
-    except:
+    except FileNotFoundError():
         Core = Timeband(
             datadir="data/",
             filename=FILE_NAME,

@@ -5,7 +5,7 @@ from torch import tensor
 from .utils.initiate import init_device
 
 
-class TIMEBANDMetric:
+class TimebandMetric:
     def __init__(self) -> None:
         self.device = init_device()
         self.mse = nn.MSELoss()
