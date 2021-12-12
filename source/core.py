@@ -187,7 +187,7 @@ class Timeband:
             axis=1,
         )
 
-        return outputs_df, bands_df
+        return outputs_df[-self.forecast_len:], bands_df[-self.forecast_len:]
 
     def is_best(self, score: float) -> bool:
         if score < self.best_score:

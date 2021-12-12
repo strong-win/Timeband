@@ -37,7 +37,7 @@ def main(FILE_NAME: str, TARGETS: List[str]):
 
     """
     MODEL_PATH = "models/"
-    OBSERVED_LEN = 5
+    OBSERVED_LEN = 10
     FORECAST_LEN = 3
     os.mkdir(MODEL_PATH) if not os.path.exists(MODEL_PATH) else None
 
@@ -103,7 +103,7 @@ def predict(FILE_NAME: str, TARGETS: List[str]):
 
     """
     MODEL_PATH = "models/"
-    OBSERVED_LEN = 5
+    OBSERVED_LEN = 10
     FORECAST_LEN = 3
     os.mkdir(MODEL_PATH) if not os.path.exists(MODEL_PATH) else None
 
