@@ -5,8 +5,10 @@ from torch.utils.data import DataLoader
 
 from source.core import Timeband
 from source.utils.initiate import seeding
+from typing import List
 
 seeding(seed=42)
+
 
 def get_path(dirname: str, filename: str, postfix: str = "") -> os.path:
     filename = filename if postfix == "" else f"{filename}_{postfix}"
@@ -18,8 +20,6 @@ def load_core(core_path):
     with open(core_path, "rb") as f:
         core = pickle.load(f)
 
-    print(f"Load Core from '{core_path}'")
-    print(f"Total Epochs {core.epochs}, {core.best_score}")
     return core
 
 
@@ -31,16 +31,14 @@ def save_core(core, core_path, best: bool = False):
         pickle.dump(core, f)
 
 
-def main():
+def main(FILE_NAME: str, TARGETS: List[str]):
     """
     0. Core 불러오기
 
     """
-    FILE_NAME = "sample_input"
     MODEL_PATH = os.path.join("models", FILE_NAME)
     OBSERVED_LEN = 5
-    FORECAST_LEN = 5
-    TARGETS = ["aaaaaa_close", "bbbbbb_close", "cccccc_close", "dddddd_close", "eeeeee_close"]
+    FORECAST_LEN = 3
     os.mkdir(MODEL_PATH) if not os.path.exists(MODEL_PATH) else None
 
     try:
@@ -128,6 +126,7 @@ def main():
     outputs, bands = Core.predict(dataloader)
     print(outputs)
     print(bands)
+
 
 if __name__ == "__main__":
     main()
