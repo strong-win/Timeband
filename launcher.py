@@ -91,21 +91,26 @@ def main(FILE_NAME: str, TARGETS: List[str]):
             Core.epochs += 1
             update = True  # train_score - valid_score < train_score * 0.5
             if update and Core.is_best(valid_score):
-                save_core(Core, get_path(MODEL_PATH, "core", f"{valid_score:.3f}"))
                 save_core(Core, get_path(MODEL_PATH, "core", "best"), best=True)
 
         if Core.is_best(valid_score):
-            save_core(Core, get_path(MODEL_PATH, "core", f"{valid_score:.3f}"))
             save_core(Core, get_path(MODEL_PATH, "core", "best"), best=True)
 
+
+def predict(FILE_NAME: str, TARGETS: List[str]):
     """
     3. 모델 예측
 
     """
+    MODEL_PATH = os.path.join("models", FILE_NAME)
+    OBSERVED_LEN = 5
+    FORECAST_LEN = 3
+    os.mkdir(MODEL_PATH) if not os.path.exists(MODEL_PATH) else None
+
     try:
         CORE_PATH = get_path(MODEL_PATH, "core", postfix="best")
         Core = load_core(CORE_PATH)
-    except FileNotFoundError():
+    except FileNotFoundError:
         Core = Timeband(
             datadir="data/",
             filename=FILE_NAME,
@@ -117,7 +122,7 @@ def main(FILE_NAME: str, TARGETS: List[str]):
             gp_weights=1,
         )
 
-    subdata = pd.read_csv(f"data/target/{FILE_NAME}.csv", parse_dates=["Date"])
+    subdata = pd.read_csv(f"data/target/{FILE_NAME}.csv", parse_dates=["date"])
     subdata = subdata.iloc[-OBSERVED_LEN - FORECAST_LEN :]
     dataset = Core.Data.prepare_predset(subdata)
     dataloader = DataLoader(dataset)
