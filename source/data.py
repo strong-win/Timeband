@@ -232,20 +232,21 @@ class TimebandData:
         From time index column, parse date-time properties
 
         """
-        timeinfo = {
-            "year": data.index.year,
-            "month": data.index.month,
-            "weekday": data.index.weekday,
-            "day": data.index.day,
-            "hour": data.index.hour,
-            "minute": data.index.minute,
-        }
-
-        for target in self.time_encode:
-            time_info = pd.DataFrame({target: timeinfo[target]}, index=data.index)
-            data = pd.concat([time_info, data], axis=1)
-
         return data
+        # timeinfo = {
+        #     "year": data.index.year,
+        #     "month": data.index.month,
+        #     "weekday": data.index.weekday,
+        #     "day": data.index.day,
+        #     "hour": data.index.hour,
+        #     "minute": data.index.minute,
+        # }
+
+        # for target in self.time_encode:
+        #     time_info = pd.DataFrame({target: timeinfo[target]}, index=data.index)
+        #     data = pd.concat([time_info, data], axis=1)
+
+        # return data
 
     def get_random(self, dataset: MyDataset) -> tuple((torch.tensor, torch.tensor)):
         """

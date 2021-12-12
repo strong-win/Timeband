@@ -61,7 +61,7 @@ def main(FILE_NAME: str, TARGETS: List[str]):
 
     """
     STEPS = 1
-    EPOCHS = 1
+    EPOCHS = 20
     CRITICS = 5
     train_score_plot = []
     valid_score_plot = []
