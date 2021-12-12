@@ -117,7 +117,10 @@ class TimebandData:
         self, data: pd.DataFrame, stride: int = 1
     ) -> Union[pd.DataFrame, Tuple[pd.DataFrame, pd.DataFrame]]:
         # Dataset Preparing
-        data.set_index(self.time_index, inplace=True)
+        try:
+            data.set_index(self.time_index, inplace=True)
+        except:
+            pass
 
         data.interpolate(method="ffill", inplace=True)
         data.interpolate(method="bfill", inplace=True)
@@ -157,7 +160,10 @@ class TimebandData:
         return trainset, validset
 
     def prepare_predset(self, data: pd.DataFrame, stride: int = 1):
-        data.set_index(self.time_index, inplace=True)
+        try:
+            data.set_index(self.time_index, inplace=True)
+        except:
+            pass
         data = self.parse_timeinfo(data)
         data = self.normalize(data)
 
