@@ -97,34 +97,18 @@ def main(FILE_NAME: str, TARGETS: List[str]):
             save_core(Core, get_path(MODEL_PATH, FILE_NAME, postfix="best"), best=True)
 
 
-def predict(FILE_NAME: str, TARGETS: List[str]):
+def predict(FILE_NAME: str, TARGETS: List[str], data: pd.DataFrame):
     """
-    3. 모델 예측
+    모델 예측
 
     """
     MODEL_PATH = "models/"
-    OBSERVED_LEN = 10
-    FORECAST_LEN = 3
     os.mkdir(MODEL_PATH) if not os.path.exists(MODEL_PATH) else None
 
-    try:
-        CORE_PATH = get_path(MODEL_PATH, FILE_NAME, postfix="best")
-        Core = load_core(CORE_PATH)
-    except FileNotFoundError:
-        Core = Timeband(
-            datadir="data/",
-            filename=FILE_NAME,
-            observed_len=OBSERVED_LEN,
-            forecast_len=FORECAST_LEN,
-            targets=TARGETS,
-            l1_weights=1,
-            l2_weights=1,
-            gp_weights=1,
-        )
+    CORE_PATH = get_path(MODEL_PATH, FILE_NAME, postfix="best")
+    Core = load_core(CORE_PATH)
 
-    subdata = pd.read_csv(f"data/target/{FILE_NAME}.csv", parse_dates=["date"])
-    subdata = subdata.iloc[-OBSERVED_LEN - FORECAST_LEN :]
-    dataset = Core.Data.prepare_predset(subdata)
+    dataset = Core.Data.prepare_predset(data)
     dataloader = DataLoader(dataset)
 
     # # Preds Step
