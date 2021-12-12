@@ -129,8 +129,8 @@ def predict(FILE_NAME: str, TARGETS: List[str]):
 
     # # Preds Step
     outputs, bands = Core.predict(dataloader)
-    print(outputs)
-    print(bands)
+
+    return outputs, bands
 
 
 if __name__ == "__main__":
