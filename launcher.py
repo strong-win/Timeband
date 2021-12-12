@@ -37,7 +37,7 @@ def main(FILE_NAME: str, TARGETS: List[str]):
 
     """
     MODEL_PATH = "models/"
-    OBSERVED_LEN = 10
+    OBSERVED_LEN = 5
     FORECAST_LEN = 3
     os.mkdir(MODEL_PATH) if not os.path.exists(MODEL_PATH) else None
 
@@ -109,6 +109,7 @@ def predict(FILE_NAME: str, TARGETS: List[str], data: pd.DataFrame):
     Core = load_core(CORE_PATH)
 
     dataset = Core.Data.prepare_predset(data)
+
     dataloader = DataLoader(dataset)
 
     # # Preds Step
