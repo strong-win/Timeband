@@ -7,7 +7,7 @@ from source.core import Timeband
 from source.utils.initiate import seeding
 from typing import List
 
-seeding(seed=42)
+# seeding(seed=42)
 
 
 def get_path(dirname: str, filename: str, postfix: str = "") -> os.path:
