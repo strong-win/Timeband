@@ -36,13 +36,13 @@ def main(FILE_NAME: str, TARGETS: List[str]):
     0. Core 불러오기
 
     """
-    MODEL_PATH = os.path.join("models", FILE_NAME)
+    MODEL_PATH = "models/"
     OBSERVED_LEN = 5
     FORECAST_LEN = 3
     os.mkdir(MODEL_PATH) if not os.path.exists(MODEL_PATH) else None
 
     try:
-        CORE_PATH = get_path(MODEL_PATH, "core", postfix="best")
+        CORE_PATH = get_path(MODEL_PATH, FILE_NAME, postfix="best")
         Core = load_core(CORE_PATH)
     except FileNotFoundError:
         Core = Timeband(
@@ -91,10 +91,10 @@ def main(FILE_NAME: str, TARGETS: List[str]):
             Core.epochs += 1
             update = True  # train_score - valid_score < train_score * 0.5
             if update and Core.is_best(valid_score):
-                save_core(Core, get_path(MODEL_PATH, "core", "best"), best=True)
+                save_core(Core, get_path(MODEL_PATH, FILE_NAME, postfix="best"), best=True)
 
         if Core.is_best(valid_score):
-            save_core(Core, get_path(MODEL_PATH, "core", "best"), best=True)
+            save_core(Core, get_path(MODEL_PATH, FILE_NAME, postfix="best"), best=True)
 
 
 def predict(FILE_NAME: str, TARGETS: List[str]):
@@ -102,13 +102,13 @@ def predict(FILE_NAME: str, TARGETS: List[str]):
     3. 모델 예측
 
     """
-    MODEL_PATH = os.path.join("models", FILE_NAME)
+    MODEL_PATH = "models/"
     OBSERVED_LEN = 5
     FORECAST_LEN = 3
     os.mkdir(MODEL_PATH) if not os.path.exists(MODEL_PATH) else None
 
     try:
-        CORE_PATH = get_path(MODEL_PATH, "core", postfix="best")
+        CORE_PATH = get_path(MODEL_PATH, FILE_NAME, postfix="best")
         Core = load_core(CORE_PATH)
     except FileNotFoundError:
         Core = Timeband(
