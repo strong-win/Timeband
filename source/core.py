@@ -52,7 +52,7 @@ class Timeband:
             targets=targets,
             drops=[],
             fill_timegap=False,
-            time_index=["Date"],
+            time_index=["date"],
             time_encode=["year", "month", "weekday", "day"],
             split_size=1.0,
             observed_len=self.observed_len,

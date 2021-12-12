@@ -129,4 +129,4 @@ def main(FILE_NAME: str, TARGETS: List[str]):
 
 
 if __name__ == "__main__":
-    main()
+    main("sample_input", ["aaaaaa_close", "bbbbbb_close", "cccccc_close", "dddddd_close", "eeeeee_close"])
