@@ -188,8 +188,8 @@ class TimebandModel(TimebandBase):
             gamma = (forecast_len - f) / (forecast_len - 1)
             std[-f] += std[-f - 1] * gamma
 
-        lower = preds - 3 * std
-        upper = preds + 3 * std
+        lower = preds - 2 * std
+        upper = preds + 2 * std
 
         return preds, lower, upper
 
